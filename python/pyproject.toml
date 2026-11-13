@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=77", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "crawlora-openligadb"
+version = "0.1.0"
+description = "Crawlora OpenLigaDB API client with 22 endpoints for sports and league discovery, fixtures, match results, standings, scorers, and team match history"
+readme = "README.md"
+keywords = ["crawlora", "api-client", "sdk", "web-scraping", "scraping-api", "openligadb", "openligadb-api", "openligadb-scraper", "openligadb-data", "openligadb-sports-league-discovery", "openligadb-fixtures", "openligadb-match-results", "openligadb-standings", "openligadb-scorers", "openligadb-team-match-history"]
+requires-python = ">=3.10"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Crawlora" }]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.10",
+  "Typing :: Typed",
+]
+dependencies = ["typing-extensions>=4.7; python_version < '3.11'"]
+
+[project.optional-dependencies]
+async = ["httpx>=0.27"]
+test = ["mypy>=1.11", "pytest>=8"]
+
+[project.urls]
+Homepage = "https://crawlora.net/?utm_source=pypi&utm_medium=referral&utm_campaign=platform-clients&utm_content=openligadb-python-homepage"
+Documentation = "https://crawlora.net/docs?utm_source=pypi&utm_medium=referral&utm_campaign=platform-clients&utm_content=openligadb-python-api-docs"
+Repository = "https://github.com/Crawlora-org/crawlora-openligadb"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["crawlora_openligadb"]
+
+[tool.setuptools.package-data]
+"crawlora_openligadb" = ["py.typed", "*.pyi"]

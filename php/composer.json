@@ -1,0 +1,46 @@
+{
+  "name": "crawlora/openligadb",
+  "description": "Crawlora OpenLigaDB API client with 22 endpoints for sports and league discovery, fixtures, match results, standings, scorers, and team match history",
+  "keywords": [
+    "crawlora",
+    "api-client",
+    "sdk",
+    "web-scraping",
+    "scraping-api",
+    "openligadb",
+    "openligadb-api",
+    "openligadb-scraper",
+    "openligadb-data",
+    "openligadb-sports-league-discovery",
+    "openligadb-fixtures",
+    "openligadb-match-results",
+    "openligadb-standings",
+    "openligadb-scorers",
+    "openligadb-team-match-history"
+  ],
+  "type": "library",
+  "license": "MIT",
+  "require": {
+    "php": ">=8.1",
+    "ext-curl": "*",
+    "ext-json": "*"
+  },
+  "autoload": {
+    "psr-4": {
+      "Crawlora\\Openligadb\\": "src/Crawlora/Openligadb/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Crawlora\\Openligadb\\Tests\\": "tests/"
+    }
+  },
+  "scripts": {
+    "test": "php tests/client_test.php"
+  },
+  "homepage": "https://crawlora.net/?utm_source=packagist&utm_medium=referral&utm_campaign=platform-clients&utm_content=openligadb-php-homepage",
+  "support": {
+    "source": "https://github.com/Crawlora-org/crawlora-openligadb",
+    "docs": "https://crawlora.net/docs?utm_source=packagist&utm_medium=referral&utm_campaign=platform-clients&utm_content=openligadb-php-api-docs"
+  }
+}

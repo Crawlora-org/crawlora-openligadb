@@ -1,0 +1,1686 @@
+{
+  "basePath": "/api/v1",
+  "definitions": {
+    "app.Response": {
+      "description": "The Response struct is used for wrapping the API response with a code, message, and data.",
+      "properties": {
+        "code": {
+          "description": "Code is the HTTP status code or a custom code used to indicate the result of the request\n@example 200",
+          "type": "integer"
+        },
+        "data": {
+          "description": "Data is the response data (can be any object or null)\n@example {\"id\": 1, \"name\": \"John Doe\"}"
+        },
+        "msg": {
+          "description": "Msg is the message that describes the result of the request\n@example \"Request successful\""
+        }
+      },
+      "type": "object"
+    },
+    "openligadb.listResponseDoc": {
+      "properties": {
+        "code": {
+          "example": 200,
+          "type": "integer"
+        },
+        "data": {
+          "$ref": "#/definitions/openligadb.listSourceDataDoc"
+        },
+        "msg": {
+          "example": "OK",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "openligadb.listSourceDataDoc": {
+      "properties": {
+        "attribution": {
+          "example": "Contains information from OpenLigaDB (https://openligadb.de/), licensed under the Open Database License (ODbL) (https://opendatacommons.org/licenses/odbl/1-0/).",
+          "type": "string"
+        },
+        "data": {
+          "items": {
+            "additionalProperties": true,
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "fetched_at": {
+          "example": "2026-10-31T12:00:00Z",
+          "type": "string"
+        },
+        "source_license": {
+          "example": "Open Data Commons Open Database License (ODbL) v1.0",
+          "type": "string"
+        },
+        "source_license_url": {
+          "example": "https://opendatacommons.org/licenses/odbl/1-0/",
+          "type": "string"
+        },
+        "source_url": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "openligadb.objectResponseDoc": {
+      "properties": {
+        "code": {
+          "example": 200,
+          "type": "integer"
+        },
+        "data": {
+          "$ref": "#/definitions/openligadb.objectSourceDataDoc"
+        },
+        "msg": {
+          "example": "OK",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "openligadb.objectSourceDataDoc": {
+      "properties": {
+        "attribution": {
+          "example": "Contains information from OpenLigaDB (https://openligadb.de/), licensed under the Open Database License (ODbL) (https://opendatacommons.org/licenses/odbl/1-0/).",
+          "type": "string"
+        },
+        "data": {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        "fetched_at": {
+          "example": "2026-10-31T12:00:00Z",
+          "type": "string"
+        },
+        "source_license": {
+          "example": "Open Data Commons Open Database License (ODbL) v1.0",
+          "type": "string"
+        },
+        "source_license_url": {
+          "example": "https://opendatacommons.org/licenses/odbl/1-0/",
+          "type": "string"
+        },
+        "source_url": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "openligadb.stringResponseDoc": {
+      "properties": {
+        "code": {
+          "example": 200,
+          "type": "integer"
+        },
+        "data": {
+          "$ref": "#/definitions/openligadb.stringSourceDataDoc"
+        },
+        "msg": {
+          "example": "OK",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "openligadb.stringSourceDataDoc": {
+      "properties": {
+        "attribution": {
+          "example": "Contains information from OpenLigaDB (https://openligadb.de/), licensed under the Open Database License (ODbL) (https://opendatacommons.org/licenses/odbl/1-0/).",
+          "type": "string"
+        },
+        "data": {
+          "example": "2026-10-31T14:20:10.123",
+          "type": "string"
+        },
+        "fetched_at": {
+          "example": "2026-10-31T12:00:00Z",
+          "type": "string"
+        },
+        "source_license": {
+          "example": "Open Data Commons Open Database License (ODbL) v1.0",
+          "type": "string"
+        },
+        "source_license_url": {
+          "example": "https://opendatacommons.org/licenses/odbl/1-0/",
+          "type": "string"
+        },
+        "source_url": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    }
+  },
+  "host": "api.crawlora.net",
+  "info": {
+    "contact": {
+      "email": "support@crawlora.net",
+      "name": "API Support",
+      "url": "https://crawlora.net"
+    },
+    "description": "Crawlora is a hosted web-data and SERP API: call documented REST endpoints and get normalized JSON instead of HTML to parse — across search/SERP, maps and local, e-commerce, app stores, social, media and finance. One API key; Crawlora runs the proxy rotation, headless browsers and parsing behind the scenes. Billed pay-on-success: charged only on a successful 2xx response, 1-10 credits per call, with a free tier of 2,000 credits per month and no card. A hosted MCP server (mcp.crawlora.net/mcp) exposes the same catalog as agent tools. Search endpoints accept `q` as a universal alias for whichever search-term parameter they document (`query`, `term`, `keyword`, or Amazon's `k`), so one parameter name works across the whole catalog; an explicitly supplied documented name always wins.",
+    "license": {
+      "name": "Crawlora Terms of Service",
+      "url": "https://crawlora.net/terms"
+    },
+    "termsOfService": "https://crawlora.net/terms",
+    "title": "Crawlora API",
+    "version": "1.2",
+    "x-logo": {
+      "altText": "Crawlora",
+      "backgroundColor": "#FFFFFF",
+      "url": "https://raw.githubusercontent.com/Crawlora-org/crawlora-mcp/main/assets/logo-400x400.png"
+    }
+  },
+  "paths": {
+    "/openligadb/current-group": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Returns OpenLigaDB's current group or matchday for a league shortcut. Use `openligadb_groups` for all matchdays and `openligadb_current_matchday` for the matches in this group.",
+        "operationId": "openligadb-current-group",
+        "parameters": [
+          {
+            "description": "Exact shortcut from openligadb-leagues",
+            "in": "query",
+            "name": "league_shortcut",
+            "required": true,
+            "type": "string",
+            "x-example": "bl1"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/openligadb.objectResponseDoc"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "Get the current league matchday",
+        "tags": [
+          "openligadb"
+        ]
+      }
+    },
+    "/openligadb/current-matchday": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Returns the matches for OpenLigaDB's current group or matchday in one league. This mirrors the source's current-matchday route; a league without a current matchday may return not found. Use `openligadb_current_group` to see the selected group id or `openligadb_matches` for a whole season.",
+        "operationId": "openligadb-current-matchday",
+        "parameters": [
+          {
+            "description": "Exact shortcut from openligadb-leagues",
+            "in": "query",
+            "name": "league_shortcut",
+            "required": true,
+            "type": "string",
+            "x-example": "bl1"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/openligadb.listResponseDoc"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "Get current matchday fixtures and results",
+        "tags": [
+          "openligadb"
+        ]
+      }
+    },
+    "/openligadb/goal-getters": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Returns the source's goal-getter ranking for one discovered league shortcut and season. The ranking uses the source's own goal and result records.",
+        "operationId": "openligadb-goal-getters",
+        "parameters": [
+          {
+            "description": "Exact shortcut from openligadb-leagues",
+            "in": "query",
+            "name": "league_shortcut",
+            "required": true,
+            "type": "string",
+            "x-example": "bl1"
+          },
+          {
+            "description": "Season starting year",
+            "in": "query",
+            "name": "season",
+            "required": true,
+            "type": "integer",
+            "x-example": 2026
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/openligadb.listResponseDoc"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "List league season goal-getters",
+        "tags": [
+          "openligadb"
+        ]
+      }
+    },
+    "/openligadb/groups": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Returns every matchday or round id for one discovered league shortcut and season. Pass a returned `groupOrderID` to `openligadb_matchday_matches` or `openligadb_last_changed`. Some legacy league-season entries in the source directory may return 404 or an empty group list.",
+        "operationId": "openligadb-groups",
+        "parameters": [
+          {
+            "description": "Exact shortcut from openligadb-leagues",
+            "in": "query",
+            "name": "league_shortcut",
+            "required": true,
+            "type": "string",
+            "x-example": "bl1"
+          },
+          {
+            "description": "Season starting year",
+            "in": "query",
+            "name": "season",
+            "required": true,
+            "type": "integer",
+            "x-example": 2026
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/openligadb.listResponseDoc"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "List league matchdays and rounds",
+        "tags": [
+          "openligadb"
+        ]
+      }
+    },
+    "/openligadb/last-changed": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Returns OpenLigaDB's source update timestamp for one league, season and matchday. Use this cheap check before refetching the full matchday when the timestamp is unchanged.",
+        "operationId": "openligadb-last-changed",
+        "parameters": [
+          {
+            "description": "Exact shortcut from openligadb-leagues",
+            "in": "query",
+            "name": "league_shortcut",
+            "required": true,
+            "type": "string",
+            "x-example": "bl1"
+          },
+          {
+            "description": "Season starting year",
+            "in": "query",
+            "name": "season",
+            "required": true,
+            "type": "integer",
+            "x-example": 2026
+          },
+          {
+            "description": "Matchday or round id from openligadb-groups",
+            "in": "query",
+            "name": "group_order_id",
+            "required": true,
+            "type": "integer",
+            "x-example": 8
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/openligadb.stringResponseDoc"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "Get a matchday's last update time",
+        "tags": [
+          "openligadb"
+        ]
+      }
+    },
+    "/openligadb/last-match": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Returns the most recently played match for a league shortcut. Use `openligadb_leagues` to find a shortcut or `openligadb_last_team_match` for one team.",
+        "operationId": "openligadb-last-match",
+        "parameters": [
+          {
+            "description": "Exact shortcut from openligadb-leagues",
+            "in": "query",
+            "name": "league_shortcut",
+            "required": true,
+            "type": "string",
+            "x-example": "bl1"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/openligadb.objectResponseDoc"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "Get a league's last match",
+        "tags": [
+          "openligadb"
+        ]
+      }
+    },
+    "/openligadb/last-team-match": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Returns the most recently played match for one team id in one league id. Discover the league id with `openligadb_leagues` and the team id with `openligadb_teams`.",
+        "operationId": "openligadb-last-team-match",
+        "parameters": [
+          {
+            "description": "OpenLigaDB league id from openligadb_leagues",
+            "format": "int64",
+            "in": "query",
+            "name": "league_id",
+            "required": true,
+            "type": "integer",
+            "x-example": 4937
+          },
+          {
+            "description": "OpenLigaDB team id from openligadb_teams",
+            "format": "int64",
+            "in": "query",
+            "name": "team_id",
+            "required": true,
+            "type": "integer",
+            "x-example": 40
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/openligadb.objectResponseDoc"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "Get a team's last match in a league",
+        "tags": [
+          "openligadb"
+        ]
+      }
+    },
+    "/openligadb/league-team-matches": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Returns matches in one league season whose team name matches a partial text fragment. Use `openligadb_teams` for exact team names and ids. Numeric fragments are rejected because the upstream path assigns numeric segments to matchday ids.",
+        "operationId": "openligadb-league-team-matches",
+        "parameters": [
+          {
+            "description": "Exact shortcut from openligadb-leagues",
+            "in": "query",
+            "name": "league_shortcut",
+            "required": true,
+            "type": "string",
+            "x-example": "bl1"
+          },
+          {
+            "description": "Season starting year",
+            "in": "query",
+            "name": "season",
+            "required": true,
+            "type": "integer",
+            "x-example": 2026
+          },
+          {
+            "description": "Partial team-name text; numeric-only values are not accepted",
+            "in": "query",
+            "name": "team_filter",
+            "required": true,
+            "type": "string",
+            "x-example": "Bayern"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/openligadb.listResponseDoc"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "Find a team's matches in one league season",
+        "tags": [
+          "openligadb"
+        ]
+      }
+    },
+    "/openligadb/leagues": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Returns every league-season record across all sports. Set `season` to the season's starting year to use OpenLigaDB's season-specific listing. This is the discovery source for `league_shortcut`, `league_id`, and `sport`; shortcuts may repeat across seasons, and the response is not paginated. The catalog is community-maintained and may include user-created or legacy entries; verify a selected pair through groups or matches.",
+        "operationId": "openligadb-leagues",
+        "parameters": [
+          {
+            "description": "Optional season starting year, e.g. 2026 for 2026/27",
+            "in": "query",
+            "name": "season",
+            "type": "integer"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/openligadb.listResponseDoc"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "List OpenLigaDB league seasons",
+        "tags": [
+          "openligadb"
+        ]
+      }
+    },
+    "/openligadb/match": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Returns one match record with its results, goal sequence, teams, location, and source update time. Get `match_id` from `openligadb_matches`, `openligadb_matchday_matches`, or a team-match endpoint.",
+        "operationId": "openligadb-match",
+        "parameters": [
+          {
+            "description": "OpenLigaDB match id",
+            "format": "int64",
+            "in": "query",
+            "name": "match_id",
+            "required": true,
+            "type": "integer",
+            "x-example": 83224
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/openligadb.objectResponseDoc"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "Get one OpenLigaDB match",
+        "tags": [
+          "openligadb"
+        ]
+      }
+    },
+    "/openligadb/matchday-matches": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Returns all fixtures and results for one discovered league shortcut, season and group order id. Use `openligadb_groups` to discover valid matchday or round ids.",
+        "operationId": "openligadb-matchday-matches",
+        "parameters": [
+          {
+            "description": "Exact shortcut from openligadb-leagues",
+            "in": "query",
+            "name": "league_shortcut",
+            "required": true,
+            "type": "string",
+            "x-example": "bl1"
+          },
+          {
+            "description": "Season starting year",
+            "in": "query",
+            "name": "season",
+            "required": true,
+            "type": "integer",
+            "x-example": 2026
+          },
+          {
+            "description": "Matchday or round id from openligadb-groups",
+            "in": "query",
+            "name": "group_order_id",
+            "required": true,
+            "type": "integer",
+            "x-example": 8
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/openligadb.listResponseDoc"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "List one league matchday",
+        "tags": [
+          "openligadb"
+        ]
+      }
+    },
+    "/openligadb/matches": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Returns every fixture and result recorded for one league shortcut and season. Use `openligadb_groups` and `openligadb_matchday_matches` for one round, or `openligadb_leagues` to discover valid league-season pairs. The source returns the full list without pagination.",
+        "operationId": "openligadb-league-matches",
+        "parameters": [
+          {
+            "description": "Exact shortcut from openligadb-leagues",
+            "in": "query",
+            "name": "league_shortcut",
+            "required": true,
+            "type": "string",
+            "x-example": "bl1"
+          },
+          {
+            "description": "Season starting year",
+            "in": "query",
+            "name": "season",
+            "required": true,
+            "type": "integer",
+            "x-example": 2026
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/openligadb.listResponseDoc"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "List a league season's matches",
+        "tags": [
+          "openligadb"
+        ]
+      }
+    },
+    "/openligadb/matches-by-team": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Returns matches around the current date across leagues for a partial team-name fragment. Both week counts are required; zero is allowed. Use `openligadb_matches_by_team_id` when you have a team id.",
+        "operationId": "openligadb-matches-by-team",
+        "parameters": [
+          {
+            "description": "Partial team-name fragment",
+            "in": "query",
+            "name": "team_filter",
+            "required": true,
+            "type": "string",
+            "x-example": "Bayern"
+          },
+          {
+            "description": "Number of weeks before today to include; zero is allowed",
+            "format": "int64",
+            "in": "query",
+            "name": "weeks_past",
+            "required": true,
+            "type": "integer",
+            "x-example": 1
+          },
+          {
+            "description": "Number of weeks after today to include; zero is allowed",
+            "format": "int64",
+            "in": "query",
+            "name": "weeks_future",
+            "required": true,
+            "type": "integer",
+            "x-example": 1
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/openligadb.listResponseDoc"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "Find recent and upcoming matches by team name",
+        "tags": [
+          "openligadb"
+        ]
+      }
+    },
+    "/openligadb/matches-by-team-id": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Returns matches around the current date across leagues for an OpenLigaDB team id. Both week counts are required; zero is allowed. Use `openligadb_matches_by_team` for a partial name search.",
+        "operationId": "openligadb-matches-by-team-id",
+        "parameters": [
+          {
+            "description": "OpenLigaDB team id from openligadb_teams",
+            "format": "int64",
+            "in": "query",
+            "name": "team_id",
+            "required": true,
+            "type": "integer",
+            "x-example": 40
+          },
+          {
+            "description": "Number of weeks before today to include; zero is allowed",
+            "format": "int64",
+            "in": "query",
+            "name": "weeks_past",
+            "required": true,
+            "type": "integer",
+            "x-example": 1
+          },
+          {
+            "description": "Number of weeks after today to include; zero is allowed",
+            "format": "int64",
+            "in": "query",
+            "name": "weeks_future",
+            "required": true,
+            "type": "integer",
+            "x-example": 1
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/openligadb.listResponseDoc"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "Find recent and upcoming matches by team id",
+        "tags": [
+          "openligadb"
+        ]
+      }
+    },
+    "/openligadb/next-match": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Returns the next upcoming match for a league shortcut. Use `openligadb_leagues` to find a shortcut or `openligadb_next_team_match` for one team.",
+        "operationId": "openligadb-next-match",
+        "parameters": [
+          {
+            "description": "Exact shortcut from openligadb-leagues",
+            "in": "query",
+            "name": "league_shortcut",
+            "required": true,
+            "type": "string",
+            "x-example": "bl1"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/openligadb.objectResponseDoc"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "Get a league's next match",
+        "tags": [
+          "openligadb"
+        ]
+      }
+    },
+    "/openligadb/next-team-match": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Returns the next match for one team id in one league id. Discover the league id with `openligadb_leagues` and the team id with `openligadb_teams`.",
+        "operationId": "openligadb-next-team-match",
+        "parameters": [
+          {
+            "description": "OpenLigaDB league id from openligadb_leagues",
+            "format": "int64",
+            "in": "query",
+            "name": "league_id",
+            "required": true,
+            "type": "integer",
+            "x-example": 4937
+          },
+          {
+            "description": "OpenLigaDB team id from openligadb_teams",
+            "format": "int64",
+            "in": "query",
+            "name": "team_id",
+            "required": true,
+            "type": "integer",
+            "x-example": 40
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/openligadb.objectResponseDoc"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "Get a team's next match in a league",
+        "tags": [
+          "openligadb"
+        ]
+      }
+    },
+    "/openligadb/result-infos": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Returns the result types configured for one OpenLigaDB league id. Use this for league-specific result names and ids; `openligadb_result_types` lists the global machine-readable meanings.",
+        "operationId": "openligadb-result-infos",
+        "parameters": [
+          {
+            "description": "OpenLigaDB league id from openligadb-leagues",
+            "format": "int64",
+            "in": "query",
+            "name": "league_id",
+            "required": true,
+            "type": "integer",
+            "x-example": 4937
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/openligadb.listResponseDoc"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "List result types configured for a league",
+        "tags": [
+          "openligadb"
+        ]
+      }
+    },
+    "/openligadb/result-types": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Returns the global machine-readable meanings of OpenLigaDB result types, including halftime, regulation, extra time, penalties and unknown.",
+        "operationId": "openligadb-result-types",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/openligadb.listResponseDoc"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "List global result types",
+        "tags": [
+          "openligadb"
+        ]
+      }
+    },
+    "/openligadb/sports": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Returns OpenLigaDB's current sport directory. Use the returned sport names and ids with `openligadb_leagues` to inspect the complete league-season catalog; the source currently exposes 13 sports, including its `Test` category.",
+        "operationId": "openligadb-sports",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/openligadb.listResponseDoc"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "List OpenLigaDB sports",
+        "tags": [
+          "openligadb"
+        ]
+      }
+    },
+    "/openligadb/table": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Returns the league standings for one discovered shortcut and season. OpenLigaDB's documented `getgrouptable` path currently returns HTTP 404 on tested league/season pairs; this endpoint uses the live `getbltable` resource.",
+        "operationId": "openligadb-table",
+        "parameters": [
+          {
+            "description": "Exact shortcut from openligadb-leagues",
+            "in": "query",
+            "name": "league_shortcut",
+            "required": true,
+            "type": "string",
+            "x-example": "bl1"
+          },
+          {
+            "description": "Season starting year",
+            "in": "query",
+            "name": "season",
+            "required": true,
+            "type": "integer",
+            "x-example": 2026
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/openligadb.listResponseDoc"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "Get a league season's table",
+        "tags": [
+          "openligadb"
+        ]
+      }
+    },
+    "/openligadb/team-pair-matches": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Returns every recorded match between two OpenLigaDB team ids. Discover team ids through `openligadb_teams`.",
+        "operationId": "openligadb-team-pair-matches",
+        "parameters": [
+          {
+            "description": "First OpenLigaDB team id",
+            "format": "int64",
+            "in": "query",
+            "name": "team_id_1",
+            "required": true,
+            "type": "integer",
+            "x-example": 40
+          },
+          {
+            "description": "Second OpenLigaDB team id",
+            "format": "int64",
+            "in": "query",
+            "name": "team_id_2",
+            "required": true,
+            "type": "integer",
+            "x-example": 7
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/openligadb.listResponseDoc"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "List matches between two teams",
+        "tags": [
+          "openligadb"
+        ]
+      }
+    },
+    "/openligadb/teams": {
+      "get": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Returns the full team list for one discovered league shortcut and season. Use the returned `teamId` values with the team-match and head-to-head endpoints.",
+        "operationId": "openligadb-teams",
+        "parameters": [
+          {
+            "description": "Exact shortcut from openligadb-leagues",
+            "in": "query",
+            "name": "league_shortcut",
+            "required": true,
+            "type": "string",
+            "x-example": "bl1"
+          },
+          {
+            "description": "Season starting year",
+            "in": "query",
+            "name": "season",
+            "required": true,
+            "type": "integer",
+            "x-example": 2026
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/openligadb.listResponseDoc"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          },
+          "503": {
+            "description": "Service Unavailable",
+            "schema": {
+              "$ref": "#/definitions/app.Response"
+            }
+          }
+        },
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
+        "summary": "List teams in a league season",
+        "tags": [
+          "openligadb"
+        ]
+      }
+    }
+  },
+  "schemes": [
+    "https"
+  ],
+  "securityDefinitions": {
+    "ApiKeyAuth": {
+      "in": "header",
+      "name": "x-api-key",
+      "type": "apiKey"
+    }
+  },
+  "swagger": "2.0",
+  "tags": [
+    {
+      "name": "openligadb"
+    }
+  ]
+}

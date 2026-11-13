@@ -1,0 +1,4 @@
+net/crawlora/openligadb/Param.class
+net/crawlora/openligadb/CrawloraException.class
+net/crawlora/openligadb/Client.class
+net/crawlora/openligadb/Operation.class

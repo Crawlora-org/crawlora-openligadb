@@ -1,0 +1,34 @@
+{
+  "name": "@crawlora-org/openligadb",
+  "version": "0.1.0",
+  "description": "Crawlora OpenLigaDB API client with 22 endpoints for sports and league discovery, fixtures, match results, standings, scorers, and team match history",
+  "homepage": "https://crawlora.net/?utm_source=npm&utm_medium=referral&utm_campaign=platform-clients&utm_content=openligadb-javascript-homepage",
+  "bugs": { "url": "https://github.com/Crawlora-org/crawlora-openligadb/issues" },
+  "keywords": ["crawlora", "api-client", "sdk", "web-scraping", "scraping-api", "openligadb", "openligadb-api", "openligadb-scraper", "openligadb-data", "openligadb-sports-league-discovery", "openligadb-fixtures", "openligadb-match-results", "openligadb-standings", "openligadb-scorers", "openligadb-team-match-history"],
+  "type": "module",
+  "main": "./src/index.js",
+  "types": "./src/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./src/index.d.ts",
+      "import": "./src/index.js"
+    }
+  },
+  "files": ["src", "README.md", "LICENSE"],
+  "engines": { "node": ">=18" },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Crawlora-org/crawlora-openligadb",
+    "directory": "javascript"
+  },
+  "scripts": {
+    "test": "node --test test/*.test.js",
+    "typecheck": "tsc --noEmit",
+    "pack:check": "npm pack --dry-run --ignore-scripts",
+    "generate": "python3 ../scripts/generate.py"
+  },
+  "devDependencies": {
+    "typescript": "5.8.3"
+  }
+}
